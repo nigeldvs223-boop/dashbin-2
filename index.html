@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DashBin Partner</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--green:#0B5D4B;--lime:#B8D941;--carbon:#101A1D;--paper:#F3F1EA;--line:#D9D6CC;--mute:#5C6663;--fh:'Archivo','Arial Narrow',Arial,sans-serif;--fb:'IBM Plex Sans',Arial,sans-serif}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--carbon);font:400 16px/1.5 var(--fb);color:var(--carbon);display:flex;justify-content:center;align-items:center;-webkit-font-smoothing:antialiased}
+#phone{width:100%;max-width:400px;height:100%;max-height:820px;background:var(--paper);display:flex;flex-direction:column;overflow:hidden;position:relative;padding-top:env(safe-area-inset-top,0)}
+@media(min-width:440px){#phone{border-radius:28px;border:8px solid #000}}
+#view{flex:1;overflow-y:auto;padding:20px 20px 24px}
+h1,h2,h3{font-family:var(--fh);font-weight:800;line-height:1.05;text-transform:uppercase}
+h1{font-size:34px}h2{font-size:24px}h3{font-size:17px}
+.lab{font:600 12px var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.lk{display:inline-flex;align-items:center;gap:.32em;font-family:var(--fh);font-weight:800;text-transform:uppercase;letter-spacing:.02em;line-height:1}
+.lk svg{height:1.55em;width:1.55em}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+.card.dk{background:var(--carbon);color:var(--paper);border-color:var(--carbon)}
+.card.gr{background:var(--green);color:var(--paper);border-color:var(--green)}
+.num{font:800 40px var(--fh);color:var(--green);line-height:1}
+.dk .num{color:var(--lime)}.gr .num{color:var(--paper)}
+.mute{color:var(--mute);font-size:14px}.dk .mute,.gr .mute{color:#C9CEC6}
+.btn{display:block;width:100%;border:0;border-radius:8px;padding:15px;font:600 16px var(--fb);background:var(--green);color:var(--paper);cursor:pointer;margin-top:12px;min-height:48px}
+.btn.lime{background:var(--lime);color:var(--carbon)}.btn.out{background:transparent;color:var(--green);border:2px solid var(--green)}
+.btn:disabled{opacity:.4}
+input{width:100%;padding:14px;border:2px solid var(--line);border-radius:8px;font:400 17px var(--fb);background:#fff;margin-top:6px}
+input:focus,.btn:focus-visible,.chip:focus-visible,nav button:focus-visible{outline:3px solid var(--lime);outline-offset:2px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:6px 0}
+.chip{flex:none;border:2px solid var(--line);background:#fff;border-radius:8px;padding:10px 12px;font:600 14px var(--fb);text-align:center;cursor:pointer;min-width:62px}
+.chip.on{background:var(--green);color:var(--paper);border-color:var(--green)}
+nav{display:flex;border-top:2px solid var(--carbon);background:var(--paper);padding-bottom:env(safe-area-inset-bottom,0)}
+nav button{flex:1;border:0;background:none;padding:10px 0 8px;font:600 11px var(--fb);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);cursor:pointer}
+nav button.on{color:var(--green);box-shadow:inset 0 3px 0 var(--green)}
+.back{border:0;background:none;font:600 14px var(--fb);color:var(--green);cursor:pointer;padding:0 0 12px;min-height:32px}
+.step{display:flex;gap:12px;padding:10px 0;border-left:3px solid var(--line);margin-left:8px;padding-left:16px;position:relative}
+.step.done{border-color:var(--green)}.step::before{content:"";position:absolute;left:-9px;top:14px;width:15px;height:15px;border-radius:50%;background:var(--paper);border:3px solid var(--line)}
+.step.done::before{background:var(--lime);border-color:var(--green)}
+.bar{height:12px;background:var(--line);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--green)}
+.badge{text-align:center;padding:14px 6px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:13px}
+.badge.off{opacity:.45}.badge b{display:block;font:800 22px var(--fh);color:var(--green)}
+.pill{display:inline-block;background:var(--lime);color:var(--carbon);font:600 12px var(--fb);padding:3px 10px;border-radius:20px}
+.toast{position:absolute;left:16px;right:16px;bottom:80px;background:var(--carbon);color:var(--paper);padding:14px;border-radius:8px;border-left:6px solid var(--lime);font-size:14px}
+.ib{flex:none;width:32px;height:32px;border-radius:50%;border:2px solid currentColor;background:none;color:inherit;font:600 16px var(--fb);cursor:pointer;line-height:1;padding:0}.ov{position:absolute;inset:0;background:rgba(16,26,29,.6);display:flex;align-items:flex-end;z-index:5}.sheet{background:var(--paper);width:100%;border-radius:16px 16px 0 0;padding:20px;max-height:85%;overflow-y:auto}.sheet h3{margin:14px 0 4px;color:var(--green)}.sheet p{font-size:14px}.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.tri .badge{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:84px;padding:12px 4px;cursor:pointer;font:600 12px var(--fb)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="sym" viewBox="0 0 100 100"><mask id="slit"><rect width="100" height="100" fill="#fff"/><rect x="45" width="10" height="100" fill="#000"/></mask><g mask="url(#slit)"><circle cx="50" cy="50" r="40" fill="none" stroke="var(--ring,#0B5D4B)" stroke-width="16"/><circle cx="50" cy="50" r="26" fill="var(--core,#B8D941)"/></g></symbol></defs></svg>
+<div id="phone"><div id="view"></div><nav id="nav" hidden></nav></div>
+<script>
+const $=s=>document.querySelector(s);
+const logo=(fs,ring='#0B5D4B',core='#B8D941',col='')=>`<span class="lk" style="font-size:${fs}px;${col}"><svg style="--ring:${ring};--core:${core}"><use href="#sym"/></svg><span>DashBin</span></span>`;
+// Sample values for demo only. Rates and limits are placeholders, not verified DashBin terms.
+const RATE=40, LIM={ffa:5,moist:1,imp:0.5}, PTS_PER_L=10;
+const S={screen:'splash',mobile:'',name:'Kochi Kitchen',addr:'',date:0,slot:1,L:25,pickup:null,ps:0,fail:false,tab:'This Month',
+ month:120,all:860,pts:1250,claimed:[],
+ hist:[{d:'12 Nov',l:30,b:'DB-261112-07',v:1200},{d:'29 Oct',l:22,b:'DB-261029-11',v:880},{d:'15 Oct',l:35,b:'DB-261015-04',v:1400}]};
+const slots=['08:00 to 10:00','10:00 to 12:00','15:00 to 17:00'];
+const days=[...Array(7)].map((_,i)=>{const d=new Date(2026,10,26+i);return{w:d.toLocaleDateString('en-IN',{weekday:'short'}),n:d.getDate(),m:d.toLocaleDateString('en-IN',{month:'short'})}});
+const tabs=[['Home','dash'],['Pickups','schedule'],['Rewards','rewards'],['More','more']];
+const tabOf={dash:0,impact:0,schedule:1,track:1,collect:1,rewards:2,game:2,more:3,history:3,invoices:3,help:3,profile:3,about:3};
+function go(s){S.screen=s;draw();$('#view').scrollTop=0}
+function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;$('#phone').append(e);setTimeout(()=>e.remove(),2400)}
+const back=to=>`<button class="back" onclick="go('${to}')">Back</button>`;
+const icon=p=>`<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0B5D4B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+const I={cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',truck:'<path d="M2 6h11v10H2zM13 10h5l3 3v3h-8"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',chart:'<path d="M3 20h18M5 16l5-5 4 4 6-8"/>',gift:'<rect x="3" y="9" width="18" height="12" rx="1"/><path d="M12 9v12M3 13h18M12 9C9 9 8 4 11 4c2 0 1 5 1 5zm0 0c3 0 4-5 1-5-2 0-1 5-1 5z"/>'};
+const grade=()=>S.fail?'Rejected':'Grade B';
+const T=()=>S.fail?{ffa:7.2,moist:1.6,imp:0.9}:{ffa:1.8,moist:0.4,imp:0.1};
+const pass=()=>{const t=T();return t.ffa<=LIM.ffa&&t.moist<=LIM.moist&&t.imp<=LIM.imp};
+const verL=()=>S.pickup?S.pickup.L:0;
+const V={
+splash:()=>`<div style="display:flex;flex-direction:column;justify-content:space-between;min-height:100%;background:var(--carbon);margin:-20px -20px -24px;padding:64px 24px 32px;color:var(--paper)">
+ <div style="text-align:center;margin-top:60px">${logo(40,'#0B5D4B','#B8D941','color:var(--paper)')}<p style="margin-top:20px;color:#D7DAD3;font-size:18px">Turn your used cooking oil<br>into clean fuel</p></div>
+ <div><button class="btn lime" onclick="go('login')">Get started</button><button class="btn out" style="color:var(--paper);border-color:var(--paper)" onclick="go('login')">Login</button></div></div>`,
+login:()=>`<button class="back" onclick="go('splash')">Back</button><h1 style="margin:8px 0 24px">Login to<br>DashBin</h1>
+ <label class="lab" for="m">Mobile number</label><input id="m" inputmode="numeric" maxlength="10" placeholder="10 digit number" value="${S.mobile}">
+ <label class="lab" for="o" style="display:block;margin-top:14px">OTP</label><div class="row" style="gap:8px"><input id="o" inputmode="numeric" maxlength="4" placeholder="4 digits" style="margin-top:6px"><button class="chip on" style="margin-top:6px;white-space:nowrap" onclick="getOtp()">Get OTP</button></div>
+ <p class="mute" id="err" style="color:#9B2C1F;min-height:24px;margin-top:8px"></p><button class="btn" onclick="login()">Login</button>
+ <p class="mute" style="text-align:center;margin-top:16px">New restaurant? <a href="#" style="color:var(--green);font-weight:600" onclick="go('register');return false">Register</a></p>`,
+register:()=>`${back('login')}<h2>Register your restaurant</h2><p class="mute" style="margin:8px 0 18px">Two details so pickups reach the right kitchen.</p>
+ <label class="lab" for="n">Restaurant name</label><input id="n" placeholder="e.g. Kochi Kitchen"><label class="lab" for="a" style="display:block;margin-top:14px">Pickup address</label><input id="a" placeholder="Street, area, pincode"><label class="lab" for="m2" style="display:block;margin-top:14px">Mobile number</label><input id="m2" inputmode="numeric" maxlength="10" placeholder="10 digit number">
+ <p class="mute" id="err" style="color:#9B2C1F;min-height:24px;margin-top:8px"></p><button class="btn" onclick="reg()">Register</button>`,
+dash:()=>`<div class="row" style="margin-bottom:16px">${logo(22)}<div class="row" style="gap:8px"><button class="chip" aria-label="About used cooking oil" aria-haspopup="dialog" onclick="openInfo()">${icon('<circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7.5v.01"/>')}</button><button class="chip" aria-label="Notifications" onclick="toast('No new notifications')">${icon('<path d="M6 9a6 6 0 0 1 12 0c0 6 2 7 2 7H4s2-1 2-7M10 20h4"/>')}</button></div></div>
+ <h2 style="font-size:22px;margin-bottom:14px">Good morning,<br>${S.name}</h2>
+ <div class="card gr"><p class="mute" style="display:flex;align-items:center;gap:8px;white-space:nowrap;font-size:clamp(11px,3.6vw,13px)"><svg width="20" height="20" viewBox="0 0 24 24" style="flex:none" aria-hidden="true"><path d="M12 2.5c3.3 4 6.8 7.2 6.8 11.3a6.8 6.8 0 0 1-13.6 0C5.2 9.7 8.7 6.5 12 2.5z" fill="#B8D941"/><path d="M8.6 14.2a3.5 3.5 0 0 0 2.4 3.2" fill="none" stroke="#0B5D4B" stroke-width="1.8" stroke-linecap="round"/></svg>Used cooking oil collected (this month)</p><div class="row"><div class="num">${S.month} L</div><span class="pill">+20%</span></div></div>
+ <button class="btn lime" style="display:flex;align-items:center;justify-content:center;gap:10px;font:800 16px var(--fh);text-transform:uppercase;padding:18px;margin:0 0 12px" onclick="go('schedule')"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#101A1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I.cal}</svg>Schedule a pickup</button>
+ <div class="tri">${[['Track pickup','truck','track'],['Reports','chart','impact'],['Rewards','gift','rewards']].map(t=>`<button class="badge" onclick="go('${t[2]}')">${icon(I[t[1]])}<span>${t[0]}</span></button>`).join('')}</div>
+ ${S.pickup&&S.ps<4?`<div class="card"><p class="lab">Active pickup</p><b>${S.pickup.date}, ${S.pickup.slot}</b><div class="mute">${S.pickup.L} L expected</div><button class="btn" onclick="go('track')">Track pickup</button></div>`:''}
+ <div class="card row" style="cursor:pointer" onclick="go('impact')"><div><b>Your oil is being turned into clean fuel</b><div class="mute">Renewable diesel</div></div><span style="font:800 22px var(--fh);color:var(--green)">&rsaquo;</span></div>`,
+schedule:()=>`<h2>Schedule pickup</h2><p class="mute" style="margin:6px 0 16px">Oil is tested at your door. If it meets the limits, you are paid on the spot.</p>
+ <p class="lab">Expected UCO (litres)</p><div class="card row"><button class="chip" aria-label="Less" onclick="S.L=Math.max(1,S.L-1);draw()">−1</button><div style="text-align:center"><div class="num">${S.L}</div><span class="mute">litres</span></div><button class="chip" aria-label="More" onclick="S.L+=1;draw()">+1</button></div>
+ <p class="lab">Preferred date</p><div class="chips">${days.map((d,i)=>`<button class="chip ${S.date==i?'on':''}" onclick="S.date=${i};draw()">${d.w}<br><span style="font:800 20px var(--fh)">${d.n}</span><br>${d.m}</button>`).join('')}</div>
+ <p class="lab" style="margin-top:10px">Preferred time slot</p>${slots.map((t,i)=>`<button class="chip ${S.slot==i?'on':''}" style="display:block;width:100%;margin-top:8px;text-align:left" onclick="S.slot=${i};draw()">${t}</button>`).join('')}
+ <button class="btn" onclick="confirmPickup()">Schedule pickup</button>`,
+track:()=>{if(!S.pickup)return`<h2>Pickup tracking</h2><div class="card" style="margin-top:16px"><p>No pickup to track yet.</p><button class="btn" onclick="go('schedule')">Schedule pickup</button></div>`;
+ const st=[['Pickup scheduled',S.pickup.date+', '+S.pickup.slot],['Collector on the way','ETA 20 min · Anil · KL 07 AB 4821'],['Pickup in progress','Oil is being tested on site'],['Collected and verified',S.fail?'Oil did not meet the limits':'Oil met the limits'],['Completed','Payment sent to your UPI']];
+ return`<h2>Pickup tracking</h2><div class="card" style="margin-top:16px">${st.map((t,i)=>`<div class="step ${i<=S.ps?'done':''}"><div><b>${t[0]}</b>${i<=S.ps?`<div class="mute">${t[1]}</div>`:''}</div></div>`).join('')}</div>
+ ${S.ps<2?`<button class="btn" onclick="S.ps++;draw()">Advance demo status</button><button class="btn out" onclick="toast('Calling collector (demo)')">Call collector</button>`
+ :S.ps==2?`<button class="btn" onclick="S.fail=false;S.ps=3;draw()">Demo: oil passes the test</button><button class="btn out" onclick="S.fail=true;S.ps=3;draw()">Demo: oil fails the test</button>`
+ :S.ps==3?`<button class="btn lime" onclick="go('collect')">View collection details</button>`:`<button class="btn out" onclick="go('dash')">Back to home</button>`}`},
+collect:()=>{if(!S.pickup||S.ps<3)return`<h2>Collection details</h2><div class="card" style="margin-top:16px"><p>This opens once the collector has tested your oil.</p><button class="btn" onclick="go('track')">Go to tracking</button></div>`;
+ const t=T(),ok=pass(),amt=verL()*RATE;
+ const r=(n,v,l,p)=>`<div class="row" style="padding:9px 0;border-top:1px solid var(--line)"><span>${n}<div class="mute">Limit ${l}</div></span><b style="color:${p?'var(--green)':'#9B2C1F'}">${v}% ${p?'✓':'✕'}</b></div>`;
+ return`${S.ps==4?back('dash'):''}<h2>Collection details</h2><p class="mute" style="margin:6px 0 14px">Tested on site with the collector's oil analyser (demo).</p>
+ <div class="card"><div class="row"><div><p class="lab">Collected</p><div class="num">${verL()} L</div></div><span class="pill" style="${ok?'':'background:#F0C9C3'}">${ok?'Quality verified ('+grade()+')':'Not accepted'}</span></div><p class="mute" style="margin-top:6px">Batch DB-261126-21</p></div>
+ <div class="card">${r('FFA',t.ffa,'up to '+LIM.ffa+'%',t.ffa<=LIM.ffa)}${r('Moisture',t.moist,'up to '+LIM.moist+'%',t.moist<=LIM.moist)}${r('Impurities',t.imp,'up to '+LIM.imp+'%',t.imp<=LIM.imp)}<p class="mute" style="margin-top:8px">Sample limits for this demo.</p></div>
+ <div class="card ${ok?'gr':''}"><p class="lab" style="${ok?'color:#C9CEC6':''}">${ok?'Paid on the spot':'No payment'}</p><div class="num">${ok?'₹'+amt:'₹0'}</div><p class="mute">${ok?'Sent to your UPI. Sample rate ₹'+RATE+' per litre.':'The oil did not meet the limits. Ask the collector about re-testing or disposal.'}</p></div>
+ ${S.ps==4?'':`<button class="btn" onclick="confirmCollect()">${ok?'Confirm and receive payment':'Close pickup'}</button><button class="btn out" onclick="toast('Dispute sent to support (demo)')">Report a problem</button>`}`},
+rewards:()=>`<h2>Rewards</h2><div class="card gr" style="margin-top:16px;cursor:pointer" onclick="go('game')"><p class="mute">Your DashBin points</p><div class="row"><div class="num">${S.pts.toLocaleString('en-IN')}</div><span style="font:800 22px var(--fh)">&rsaquo;</span></div></div>
+ <p class="lab" style="margin:16px 0 8px">Redeem for</p>${[['UPI cashback',1000,'₹100 sent to your UPI'],['Supply discounts',1500,'Cooking oil, cleaning and more'],['Sustainability certificate',800,'For your ESG and brand reports']].map((r,i)=>`<div class="card"><div class="row"><div><b>${r[0]}</b><div class="mute">${r[2]}</div></div><span class="pill">${r[1]}</span></div><button class="btn ${S.claimed.includes(i)?'out':''}" ${S.pts<r[1]||S.claimed.includes(i)?'disabled':''} onclick="redeem(${i},${r[1]})">${S.claimed.includes(i)?'Redeemed':S.pts<r[1]?'Not enough points':'Redeem'}</button></div>`).join('')}`,
+impact:()=>{const L={'This Month':S.month,'This Quarter':S.month+260,'All Time':S.all}[S.tab];return`${back('dash')}<h2>Impact and reports</h2>
+ <div class="row" style="gap:6px;margin:14px 0">${['This Month','This Quarter','All Time'].map(t=>`<button class="chip ${S.tab==t?'on':''}" style="flex:1;min-width:0" onclick="S.tab='${t}';draw()">${t}</button>`).join('')}</div>
+ <div class="card"><p class="lab">UCO recycled</p><div class="num">${L} L</div></div><div class="card"><p class="lab">CO₂ emissions avoided</p><div class="num">~${Math.round(L*2.65)} kg</div></div><div class="card"><p class="lab">Renewable diesel enabled</p><div class="num">~${Math.round(L*.92)} L</div></div>
+ <p class="mute">Sample estimates. Conversion factors are placeholders until DashBin confirms them.</p><button class="btn" onclick="toast('Report downloaded (demo)')">Download report (PDF)</button>`},
+game:()=>{const p=Math.min(S.pts,2000);return`${back('rewards')}<h2>Your progress</h2><div class="card gr" style="margin-top:16px"><h3>Green Restaurant Partner</h3><span class="pill" style="margin:8px 0;display:inline-block">Level 3</span><div class="bar"><i style="width:${p/20}%;background:var(--lime)"></i></div><p class="mute" style="margin-top:6px">${p.toLocaleString('en-IN')} / 2,000 pts</p></div>
+ <div class="card"><p class="lab">Next badge</p><b>Zero Waste Hero</b><div class="mute">Recycle 500 L cumulatively</div><div class="bar" style="margin-top:10px"><i style="width:${Math.min(100,S.all/5)}%"></i></div><p class="mute" style="margin-top:6px">${S.all} of 500 L</p></div>
+ <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">${[['1','First pickup',1],['3','Three pickups',S.hist.length>=3],['100','100 L',S.all>=100],['500','500 L',S.all>=500],['L3','Level 3',1],['1K','1,000 L',S.all>=1000]].map(b=>`<div class="badge ${b[2]?'':'off'}"><b>${b[0]}</b>${b[1]}</div>`).join('')}</div>`},
+more:()=>`<h2>More</h2><div style="margin-top:16px">${[['profile','Restaurant profile'],['history','Collection history'],['invoices','Invoices'],['help','Help and support'],['about','About DashBin']].map(m=>`<button class="btn out" style="text-align:left;margin-top:8px" onclick="go('${m[0]}')">${m[1]}</button>`).join('')}<button class="btn" onclick="logout()">Logout</button></div>`,
+profile:()=>`${back('more')}<h2>Restaurant profile</h2><div class="card" style="margin-top:16px"><p class="lab">Name</p><p>${S.name}</p><p class="lab" style="margin-top:12px">Address</p><p>${S.addr||'MG Road, Kochi (sample)'}</p><p class="lab" style="margin-top:12px">Mobile</p><p>+91 ${S.mobile||'9876543210'}</p></div>`,
+history:()=>`${back('more')}<h2>Collection history</h2><div style="margin-top:16px">${S.hist.map(h=>`<div class="card row"><div><b>${h.l} L</b><div class="mute">${h.b}</div></div><span class="mute">${h.d}</span></div>`).join('')}</div>`,
+invoices:()=>`${back('more')}<h2>Invoices</h2><div style="margin-top:16px">${S.hist.map(h=>`<div class="card row"><div><b>₹${h.v}</b><div class="mute">${h.d} · ${h.b}</div></div><button class="chip" onclick="toast('Invoice downloaded (demo)')">Download</button></div>`).join('')}</div>`,
+help:()=>`${back('more')}<h2>Help and support</h2><div style="margin-top:16px">${[['How is my oil tested?','The collector tests FFA, moisture and impurities on site. You see the results before you confirm.'],['When am I paid?','Immediately at pickup, once the oil meets the limits shown in the app.'],['What if my oil fails?','No payment is made for that batch. Support can explain the result and options.'],['What oil can I hand over?','Used frying oil only, free of food waste and other liquids.']].map(f=>`<details class="card"><summary><b>${f[0]}</b></summary><p class="mute" style="margin-top:8px">${f[1]}</p></details>`).join('')}</div><button class="btn" onclick="toast('Calling support (demo)')">Call support</button>`,
+about:()=>`${back('more')}<h2>About DashBin</h2><div class="card" style="margin-top:16px">${logo(26)}<p style="margin-top:14px">DashBin collects used cooking oil from restaurants, tests it on site, pays you at pickup and records every litre against a batch.</p><p class="mute" style="margin-top:10px">Version 0.1 demo</p></div>`
+};
+function draw(){const s=S.screen;$('#view').innerHTML=V[s]();const t=tabOf[s];const nv=$('#nav');nv.hidden=t===undefined;if(t!==undefined)nv.innerHTML=tabs.map((v,i)=>`<button class="${i==t?'on':''}" onclick="go('${v[1]}')">${v[0]}</button>`).join('')}
+function getOtp(){const m=$('#m').value.replace(/\D/g,'');if(m.length!=10){$('#err').textContent='Enter a 10 digit mobile number first.';return}S.mobile=m;$('#err').textContent='';toast('Code sent. Demo code is 1234')}
+function login(){const m=$('#m').value.replace(/\D/g,'');if(m.length!=10){$('#err').textContent='Enter a 10 digit mobile number.';return}if($('#o').value!='1234'){S.mobile=m;$('#err').textContent='Code not recognised. Tap Get OTP, then use 1234.';return}S.mobile=m;go('dash')}
+function reg(){const n=$('#n').value.trim(),a=$('#a').value.trim(),m=$('#m2').value.replace(/\D/g,'');if(!n||!a||m.length!=10){$('#err').textContent='Add restaurant name, address and a 10 digit mobile number.';return}S.name=n;S.addr=a;S.mobile=m;toast('Registered. Login with the demo code 1234');go('login')}
+function confirmPickup(){const d=days[S.date];S.pickup={date:d.w+' '+d.n+' '+d.m,slot:slots[S.slot],L:S.L};S.ps=0;S.fail=false;toast('Pickup scheduled');go('track')}
+function confirmCollect(){const ok=pass(),L=verL();if(ok){S.hist.unshift({d:'26 Nov',l:L,b:'DB-261126-21',v:L*RATE});S.pts+=L*PTS_PER_L;S.month+=L;S.all+=L;toast('₹'+L*RATE+' paid to your UPI')}else toast('Pickup closed. No payment for this batch');S.ps=4;go('track')}
+function redeem(i,c){S.pts-=c;S.claimed.push(i);toast('Redeemed');draw()}
+function openInfo(){const o=document.createElement('div');o.className='ov';o.id='ov';o.onclick=e=>{if(e.target===o)closeInfo()};o.innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="it"><div class="row"><h2 id="it" style="font-size:20px">About used cooking oil</h2><button class="ib" aria-label="Close" onclick="closeInfo()">×</button></div>
+<h3>What it is</h3><p>Oil left over after frying that is no longer fit for cooking.</p>
+<h3>Why DashBin collects it</h3><p>It is tested, traced and turned into clean fuel, instead of going down drains or being reused.</p>
+<h3>How to schedule</h3><p>Tap Schedule a pickup, enter the litres, pick a date and time slot. The oil is tested at your door.</p>
+<h3>Store it safely</h3><p>Let it cool fully. Keep it in a sealed, labelled container, away from heat and water. Do not mix it with food waste or other liquids.</p>
+<button class="btn" onclick="closeInfo()">Got it</button></div>`;$('#phone').append(o);o.querySelector('.ib').focus();document.addEventListener('keydown',escInfo)}
+function escInfo(e){if(e.key==='Escape')closeInfo()}
+function closeInfo(){const o=$('#ov');if(o)o.remove();document.removeEventListener('keydown',escInfo)}
+function logout(){S.pickup=null;S.ps=0;go('splash')}
+draw();
+</script></body></html>
